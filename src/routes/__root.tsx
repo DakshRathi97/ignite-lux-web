@@ -77,6 +77,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Krishiv Pyro LLP" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Krishiv Pyro LLP — Premium Fireworks" },
+      { name: "twitter:title", content: "Krishiv Pyro LLP — Premium Fireworks" },
+      { property: "og:description", content: "Premium fireworks crafted for unforgettable moments across India." },
+      { name: "twitter:description", content: "Premium fireworks crafted for unforgettable moments across India." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9efe099-c20b-4d63-af6e-abf221ed3777/id-preview-b3ef0b75--6988d5f8-b256-4750-b302-9e2fa074575a.lovable.app-1779958643748.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e9efe099-c20b-4d63-af6e-abf221ed3777/id-preview-b3ef0b75--6988d5f8-b256-4750-b302-9e2fa074575a.lovable.app-1779958643748.png" },
     ],
     links: [
       {
