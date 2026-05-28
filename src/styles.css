@@ -4,6 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
 /*
  * Design system definition.
  *
@@ -59,29 +61,42 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-gold: var(--gold);
+  --color-fire: var(--fire);
+  --color-ember: var(--ember);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --font-display: 'Manrope', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
+  /* Krishiv Pyro — Dark luxury */
+  --background: oklch(0.16 0.012 260);          /* #0F1115 */
+  --foreground: oklch(1 0 0);                    /* white */
+  --surface: oklch(0.19 0.018 265);              /* #111827 */
+  --surface-elevated: oklch(0.23 0.020 265);
+  --card: oklch(0.19 0.018 265);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.19 0.018 265);
+  --popover-foreground: oklch(1 0 0);
+  --primary: oklch(0.82 0.165 80);               /* gold #F5B700 */
+  --primary-foreground: oklch(0.16 0.012 260);
+  --secondary: oklch(0.23 0.020 265);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.23 0.020 265);
+  --muted-foreground: oklch(0.78 0.013 260);     /* #B8BDC7 */
+  --accent: oklch(0.72 0.18 45);                 /* fire #FF6B35 */
+  --accent-foreground: oklch(0.16 0.012 260);
+  --destructive: oklch(0.62 0.18 25);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.82 0.165 80 / 50%);
+  --gold: oklch(0.82 0.165 80);
+  --fire: oklch(0.72 0.18 45);
+  --ember: oklch(0.62 0.17 25);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +155,67 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #F5B700 0%, #FF6B35 60%, #D64545 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-glow-gold {
+    background: radial-gradient(circle at center, rgba(245,183,0,0.25), transparent 60%);
+  }
+  .bg-glow-fire {
+    background: radial-gradient(circle at center, rgba(255,107,53,0.22), transparent 60%);
+  }
+  .glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .hover-glow {
+    transition: box-shadow .4s ease, transform .4s ease, border-color .4s ease;
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 40px -8px rgba(245,183,0,0.45), 0 0 80px -20px rgba(255,107,53,0.25);
+    border-color: rgba(245,183,0,0.4);
+  }
+  .divider-glow {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245,183,0,0.6), transparent);
+  }
+  @keyframes float-spark {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    20%  { opacity: 1; }
+    100% { transform: translateY(-120vh) scale(0.4); opacity: 0; }
+  }
+  .spark {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 9999px;
+    background: #F5B700;
+    box-shadow: 0 0 8px 1px rgba(245,183,0,0.8);
+    animation: float-spark linear infinite;
+  }
+  @keyframes pulse-glow {
+    0%,100% { opacity: .55; transform: scale(1); }
+    50%     { opacity: 1; transform: scale(1.08); }
+  }
+  .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
 }
