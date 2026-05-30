@@ -1,14 +1,41 @@
 import { motion } from "motion/react";
 import { Mail, MapPin, Phone, Instagram, Facebook, Youtube, ArrowRight } from "lucide-react";
 import { SectionHeading, SectionLabel } from "./Section";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const info = [
   { icon: Phone, label: "Phone", value: "+91 98765 43210" },
   { icon: Mail, label: "Email", value: "hello@krishivpyro.com" },
-  { icon: MapPin, label: "Address", value: "Sivakasi, Tamil Nadu, India" },
+  { icon: MapPin, label: "Address", value: "G62P+7W Limbhoi, Gujarat, India" },
 ];
 
 export function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleChange = (id: string, value: string) =>
+    setForm((f) => ({ ...f, [id]: value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    const { error } = await supabase.from("inquiries").insert({
+      full_name: form.name,
+      email: form.email || null,
+      phone: form.phone,
+      message: form.message,
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+      return;
+    }
+    toast.success("Thank you — we'll be in touch within 24 hours.");
+    setForm({ name: "", email: "", phone: "", message: "" });
+  };
+
   return (
     <section id="contact" className="relative py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -61,7 +88,7 @@ export function Contact() {
             <div className="mt-10 overflow-hidden rounded-3xl border border-white/10">
               <iframe
                 title="Krishiv Pyro Location"
-                src="https://www.google.com/maps?q=Sivakasi,Tamil+Nadu&output=embed"
+                src="https://www.google.com/maps?q=G62P%2B7W+Limbhoi+Gujarat&output=embed"
                 width="100%"
                 height="240"
                 loading="lazy"
@@ -75,18 +102,15 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Thank you — we'll be in touch within 24 hours.");
-            }}
+            onSubmit={handleSubmit}
             className="glass relative rounded-3xl p-8 sm:p-10"
           >
             <div className="absolute -top-20 -right-10 h-48 w-48 rounded-full bg-glow-gold blur-3xl" />
             <div className="relative space-y-6">
               {[
-                { id: "name", label: "Full Name", type: "text" },
-                { id: "email", label: "Email", type: "email" },
-                { id: "phone", label: "Phone", type: "tel" },
+                { id: "name", label: "Full Name", type: "text", required: true },
+                { id: "email", label: "Email (optional)", type: "email", required: false },
+                { id: "phone", label: "Phone", type: "tel", required: true },
               ].map((f) => (
                 <div key={f.id}>
                   <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -94,8 +118,10 @@ export function Contact() {
                   </label>
                   <input
                     type={f.type}
-                    required
+                    required={f.required}
                     name={f.id}
+                    value={form[f.id as keyof typeof form]}
+                    onChange={(e) => handleChange(f.id, e.target.value)}
                     className="mt-2 w-full border-0 border-b border-white/15 bg-transparent py-3 text-foreground outline-none transition focus:border-primary"
                   />
                 </div>
@@ -106,15 +132,19 @@ export function Contact() {
                 </label>
                 <textarea
                   required
+                  name="message"
+                  value={form.message}
+                  onChange={(e) => handleChange("message", e.target.value)}
                   rows={4}
                   className="mt-2 w-full resize-none border-0 border-b border-white/15 bg-transparent py-3 text-foreground outline-none transition focus:border-primary"
                 />
               </div>
               <button
                 type="submit"
-                className="group mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[0_0_35px_-6px_rgba(245,183,0,0.7)] transition hover:shadow-[0_0_55px_-4px_rgba(245,183,0,1)]"
+                disabled={submitting}
+                className="group mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[0_0_35px_-6px_rgba(245,183,0,0.7)] transition hover:shadow-[0_0_55px_-4px_rgba(245,183,0,1)] disabled:opacity-60"
               >
-                Send Enquiry
+                {submitting ? "Sending..." : "Send Enquiry"}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </button>
             </div>
