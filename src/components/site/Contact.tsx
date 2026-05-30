@@ -1,14 +1,41 @@
 import { motion } from "motion/react";
 import { Mail, MapPin, Phone, Instagram, Facebook, Youtube, ArrowRight } from "lucide-react";
 import { SectionHeading, SectionLabel } from "./Section";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const info = [
   { icon: Phone, label: "Phone", value: "+91 98765 43210" },
   { icon: Mail, label: "Email", value: "hello@krishivpyro.com" },
-  { icon: MapPin, label: "Address", value: "Sivakasi, Tamil Nadu, India" },
+  { icon: MapPin, label: "Address", value: "G62P+7W Limbhoi, Gujarat, India" },
 ];
 
 export function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleChange = (id: string, value: string) =>
+    setForm((f) => ({ ...f, [id]: value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    const { error } = await supabase.from("inquiries").insert({
+      full_name: form.name,
+      email: form.email || null,
+      phone: form.phone,
+      message: form.message,
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+      return;
+    }
+    toast.success("Thank you — we'll be in touch within 24 hours.");
+    setForm({ name: "", email: "", phone: "", message: "" });
+  };
+
   return (
     <section id="contact" className="relative py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
