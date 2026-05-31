@@ -8,7 +8,7 @@ import { toast } from "sonner";
 const info = [
   { icon: Phone, label: "Phone", value: "+91 98765 43210" },
   { icon: Mail, label: "Email", value: "hello@krishivpyro.com" },
-  { icon: MapPin, label: "Address", value: "G62P+7W Limbhoi, Gujarat, India" },
+  { icon: MapPin, label: "Address", value: "NA 783, Limbhoi, Postal code - 383316" },
 ];
 
 export function Contact() {
@@ -88,7 +88,7 @@ export function Contact() {
             <div className="mt-10 overflow-hidden rounded-3xl border border-white/10">
               <iframe
                 title="Krishiv Pyro Location"
-                src="https://www.google.com/maps?q=G62P%2B7W+Limbhoi+Gujarat&output=embed"
+                src="https://www.google.com/maps?q=NA+783+Limbhoi+383316&output=embed"
                 width="100%"
                 height="240"
                 loading="lazy"
