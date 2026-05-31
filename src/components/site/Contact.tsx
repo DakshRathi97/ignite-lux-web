@@ -6,8 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const info = [
-  { icon: Phone, label: "Phone", value: "+91 98765 43210" },
-  { icon: Mail, label: "Email", value: "hello@krishivpyro.com" },
+  { icon: Phone, label: "Phone", value: "+91 94085 87316" },
+  { icon: Mail, label: "Email", value: "krishivpyrollp@gmail.com" },
   { icon: MapPin, label: "Address", value: "NA 783, Limbhoi, Postal code - 383316" },
 ];
 
