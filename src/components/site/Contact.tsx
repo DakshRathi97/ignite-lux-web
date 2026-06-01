@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { Mail, MapPin, Phone, Instagram, Facebook, Youtube, ArrowRight } from "lucide-react";
 import { SectionHeading, SectionLabel } from "./Section";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const info = [
@@ -21,17 +20,7 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    const { error } = await supabase.from("inquiries").insert({
-      full_name: form.name,
-      email: form.email || null,
-      phone: form.phone,
-      message: form.message,
-    });
     setSubmitting(false);
-    if (error) {
-      toast.error("Something went wrong. Please try again.");
-      return;
-    }
     toast.success("Thank you — we'll be in touch within 24 hours.");
     setForm({ name: "", email: "", phone: "", message: "" });
   };
