@@ -28,7 +28,7 @@ export function Contact() {
   return (
     <section id="contact" className="relative py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
+        <div className="grid items-start gap-16 lg:grid-cols-2 lg:gap-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -92,7 +92,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
             onSubmit={handleSubmit}
-            className="glass relative rounded-3xl p-8 sm:p-10"
+            className="glass relative rounded-3xl p-8 sm:p-10 lg:sticky lg:top-28 lg:self-start"
           >
             <div className="absolute -top-20 -right-10 h-48 w-48 rounded-full bg-glow-gold blur-3xl" />
             <div className="relative space-y-6">
