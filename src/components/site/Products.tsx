@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Search } from "lucide-react";
 import { SectionHeading, SectionLabel } from "./Section";
 import blackThunder from "@/assets/black-thunder.jpg.asset.json";
 import magicRing from "@/assets/magic-ring-crystal.jpg.asset.json";
@@ -8,45 +9,114 @@ import primeGold from "@/assets/prime-gold.jpg.asset.json";
 import weddingHaasini from "@/assets/wedding-haasini.jpg.asset.json";
 import pinkHeart from "@/assets/pink-heart.jpg.asset.json";
 
-type Cat = "All" | "Aerial" | "Sparklers" | "Shots" | "Festival" | "Wedding";
+type Cat = "All" | "Rockets" | "Sparklers" | "Bombs" | "Flowerpots" | "Fountains" | "Novelties";
+type Pricing = "Retail" | "Bulk" | "Both";
+type PricingFilter = "All" | Pricing;
 
-const items: { img: string; name: string; desc: string; cat: Exclude<Cat, "All"> }[] = [
-  { img: blackThunder.url, name: "Black Thunder", desc: "Powerful crackers with bright, thunderous bursts.", cat: "Aerial" },
-  { img: magicRing.url, name: "Magic Ring — Crystal", desc: "Spinning ground chakra with shimmering crystal sparks.", cat: "Sparklers" },
-  { img: knockOut.url, name: "Color Punch — Knock Out", desc: "Multi-color aerial shot with a knockout finale.", cat: "Shots" },
-  { img: primeGold.url, name: "Prime Series Gold", desc: "Premium gold willow shells — a best-seller showstopper.", cat: "Festival" },
-  { img: weddingHaasini.url, name: "Wedding Series — Haasini", desc: "White willow with delicate crackling for wedding finales.", cat: "Wedding" },
-  { img: pinkHeart.url, name: "Pink Heart", desc: "Romantic pink heart-burst aerial display.", cat: "Festival" },
+interface Product {
+  img: string;
+  name: string;
+  desc: string;
+  cat: Exclude<Cat, "All">;
+  pricing: Pricing;
+}
+
+const items: Product[] = [
+  { img: blackThunder.url, name: "Black Thunder", desc: "Powerful rockets with bright, thunderous bursts lighting up the sky.", cat: "Rockets", pricing: "Both" },
+  { img: magicRing.url, name: "Magic Ring — Crystal", desc: "Spinning ground chakra with shimmering crystal sparks.", cat: "Sparklers", pricing: "Retail" },
+  { img: knockOut.url, name: "Color Punch — Knock Out", desc: "Multi-color aerial bomb with a knockout finale.", cat: "Bombs", pricing: "Both" },
+  { img: primeGold.url, name: "Prime Series Gold", desc: "Premium gold willow flowerpot — a best-seller showstopper.", cat: "Flowerpots", pricing: "Bulk" },
+  { img: weddingHaasini.url, name: "Wedding Series — Haasini", desc: "Elegant silver fountain with delicate crackling for wedding finales.", cat: "Fountains", pricing: "Bulk" },
+  { img: pinkHeart.url, name: "Pink Heart", desc: "Romantic pink heart novelty — perfect for proposals and celebrations.", cat: "Novelties", pricing: "Retail" },
+  { img: blackThunder.url, name: "Sky Blaster", desc: "High-altitude rocket with cascading silver stars.", cat: "Rockets", pricing: "Bulk" },
+  { img: magicRing.url, name: "Golden Sparkler", desc: "Long-burning gold sparkler for festivals and events.", cat: "Sparklers", pricing: "Retail" },
+  { img: knockOut.url, name: "Thunder Bomb", desc: "Deep bass explosion with vibrant red and green blooms.", cat: "Bombs", pricing: "Both" },
+  { img: primeGold.url, name: "Silver Shower Pot", desc: "Crackling silver flowerpot showering sparks from the ground.", cat: "Flowerpots", pricing: "Both" },
+  { img: weddingHaasini.url, name: "Crackle Fountain", desc: "Continuous crackle fountain with bright silver sparks.", cat: "Fountains", pricing: "Retail" },
+  { img: pinkHeart.url, name: "Spinning Wheel", desc: "Ground-spinning novelty that whirls with colorful flames.", cat: "Novelties", pricing: "Retail" },
 ];
 
-const cats: Cat[] = ["All", "Aerial", "Sparklers", "Shots", "Festival", "Wedding"];
+const cats: Cat[] = ["All", "Rockets", "Sparklers", "Bombs", "Flowerpots", "Fountains", "Novelties"];
+const pricingOpts: PricingFilter[] = ["All", "Retail", "Bulk"];
 
 export function Products() {
-  const [active, setActive] = useState<Cat>("All");
-  const filtered = active === "All" ? items : items.filter((i) => i.cat === active);
+  const [search, setSearch] = useState("");
+  const [activeCat, setActiveCat] = useState<Cat>("All");
+  const [activePricing, setActivePricing] = useState<PricingFilter>("All");
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return items.filter((it) => {
+      const matchesSearch =
+        !q ||
+        it.name.toLowerCase().includes(q) ||
+        it.desc.toLowerCase().includes(q) ||
+        it.cat.toLowerCase().includes(q);
+      const matchesCat = activeCat === "All" || it.cat === activeCat;
+      const matchesPricing =
+        activePricing === "All" ||
+        it.pricing === activePricing ||
+        it.pricing === "Both";
+      return matchesSearch && matchesCat && matchesPricing;
+    });
+  }, [search, activeCat, activePricing]);
 
   return (
     <section id="products" className="relative py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <SectionLabel>Our Collection</SectionLabel>
-            <SectionHeading>
-              Pyrotechnics, <span className="text-gradient-gold font-semibold">designed</span>.
-            </SectionHeading>
-            <p className="mt-6 text-muted-foreground">
-              A curated catalogue of aerial shells, sparklers, fountains, and choreographed
-              festival collections.
-            </p>
+        {/* Header */}
+        <div className="max-w-2xl">
+          <SectionLabel>Our Collection</SectionLabel>
+          <SectionHeading>
+            Pyrotechnics, <span className="text-gradient-gold font-semibold">designed</span>.
+          </SectionHeading>
+          <p className="mt-6 text-muted-foreground">
+            A curated catalogue of aerial shells, sparklers, fountains, and choreographed
+            festival collections.
+          </p>
+        </div>
+
+        {/* Search + Filters */}
+        <div className="mt-10 flex flex-col gap-5">
+          {/* Search bar + Pricing toggle */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="relative flex-1">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search firecrackers..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 pl-11 pr-4 text-sm text-foreground placeholder:text-muted-foreground/60 backdrop-blur-sm transition focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/30"
+              />
+            </div>
+
+            {/* Retail / Bulk segmented toggle */}
+            <div className="flex shrink-0 rounded-full border border-white/10 bg-white/[0.03] p-1 backdrop-blur-sm">
+              {pricingOpts.map((p) => (
+                <button
+                  key={p}
+                  onClick={() => setActivePricing(p)}
+                  className={`rounded-full px-4 py-2 text-xs font-medium uppercase tracking-wider transition ${
+                    activePricing === p
+                      ? "bg-primary/15 text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
           </div>
 
+          {/* Category pills */}
           <div className="flex flex-wrap gap-2">
             {cats.map((c) => (
               <button
                 key={c}
-                onClick={() => setActive(c)}
+                onClick={() => setActiveCat(c)}
                 className={`rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wider transition ${
-                  active === c
+                  activeCat === c
                     ? "border-primary bg-primary/15 text-primary"
                     : "border-white/10 text-muted-foreground hover:border-white/30 hover:text-foreground"
                 }`}
@@ -57,6 +127,7 @@ export function Products() {
           </div>
         </div>
 
+        {/* Product grid */}
         <motion.div layout className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((it) => (
@@ -82,6 +153,11 @@ export function Products() {
                   <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-background/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground backdrop-blur">
                     {it.cat}
                   </span>
+                  {it.pricing !== "Both" && (
+                    <span className="absolute right-5 top-5 rounded-full border border-white/15 bg-background/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
+                      {it.pricing}
+                    </span>
+                  )}
                 </div>
                 <div className="relative -mt-20 p-6">
                   <h3 className="font-display text-xl font-medium text-foreground">{it.name}</h3>
@@ -94,6 +170,30 @@ export function Products() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Empty state */}
+        <AnimatePresence>
+          {filtered.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="mt-20 text-center"
+            >
+              <p className="text-muted-foreground">No products match your search.</p>
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setActiveCat("All");
+                  setActivePricing("All");
+                }}
+                className="mt-4 text-sm text-primary underline underline-offset-4 transition hover:text-primary/80"
+              >
+                Clear all filters
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
