@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { SectionHeading, SectionLabel } from "./Section";
-import aerial from "@/assets/product-aerial.jpg";
-import sparklers from "@/assets/product-sparklers.jpg";
-import shots from "@/assets/product-shots.jpg";
-import festival from "@/assets/product-festival.jpg";
-import wedding from "@/assets/product-wedding.jpg";
-import fountain from "@/assets/product-fountain.jpg";
+import blackThunder from "@/assets/black-thunder.jpg.asset.json";
+import magicRing from "@/assets/magic-ring-crystal.jpg.asset.json";
+import knockOut from "@/assets/knock-out.jpg.asset.json";
+import primeGold from "@/assets/prime-gold.jpg.asset.json";
+import weddingHaasini from "@/assets/wedding-haasini.jpg.asset.json";
+import pinkHeart from "@/assets/pink-heart.jpg.asset.json";
 
 type Cat = "All" | "Aerial" | "Sparklers" | "Shots" | "Festival" | "Wedding";
 
 const items: { img: string; name: string; desc: string; cat: Exclude<Cat, "All"> }[] = [
-  { img: aerial, name: "Auriga Aerial Burst", desc: "Symmetrical gold chrysanthemum shells.", cat: "Aerial" },
-  { img: sparklers, name: "Lumen Sparklers", desc: "Smokeless, slow-burn handheld sparklers.", cat: "Sparklers" },
-  { img: shots, name: "Ignis Celebration Shot", desc: "Single-shot finale with crackling tail.", cat: "Shots" },
-  { img: festival, name: "Diwali Skyline", desc: "Curated festival multi-shot collection.", cat: "Festival" },
-  { img: wedding, name: "Vivaha Willow Cake", desc: "Gold willow effect for wedding finales.", cat: "Wedding" },
-  { img: fountain, name: "Aurum Fountain", desc: "Ground fountain — pure gold cascade.", cat: "Festival" },
+  { img: blackThunder.url, name: "Black Thunder", desc: "Powerful crackers with bright, thunderous bursts.", cat: "Aerial" },
+  { img: magicRing.url, name: "Magic Ring — Crystal", desc: "Spinning ground chakra with shimmering crystal sparks.", cat: "Sparklers" },
+  { img: knockOut.url, name: "Color Punch — Knock Out", desc: "Multi-color aerial shot with a knockout finale.", cat: "Shots" },
+  { img: primeGold.url, name: "Prime Series Gold", desc: "Premium gold willow shells — a best-seller showstopper.", cat: "Festival" },
+  { img: weddingHaasini.url, name: "Wedding Series — Haasini", desc: "White willow with delicate crackling for wedding finales.", cat: "Wedding" },
+  { img: pinkHeart.url, name: "Pink Heart", desc: "Romantic pink heart-burst aerial display.", cat: "Festival" },
 ];
 
 const cats: Cat[] = ["All", "Aerial", "Sparklers", "Shots", "Festival", "Wedding"];
