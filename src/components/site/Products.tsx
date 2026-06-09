@@ -2,12 +2,18 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Search } from "lucide-react";
 import { SectionHeading, SectionLabel } from "./Section";
-import blackThunder from "@/assets/black-thunder.jpg.asset.json";
-import magicRing from "@/assets/magic-ring-crystal.jpg.asset.json";
-import knockOut from "@/assets/knock-out.jpg.asset.json";
-import primeGold from "@/assets/prime-gold.jpg.asset.json";
-import weddingHaasini from "@/assets/wedding-haasini.jpg.asset.json";
-import pinkHeart from "@/assets/pink-heart.jpg.asset.json";
+import productAerial from "@/assets/product-aerial.jpg";
+import productSparklers from "@/assets/product-sparklers.jpg";
+import productShots from "@/assets/product-shots.jpg";
+import productFestival from "@/assets/product-festival.jpg";
+import productFountain from "@/assets/product-fountain.jpg";
+import productWedding from "@/assets/product-wedding.jpg";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import gallery4 from "@/assets/gallery-4.jpg";
+import gallery5 from "@/assets/gallery-5.jpg";
+import gallery6 from "@/assets/gallery-6.jpg";
 
 type Cat = "All" | "Rockets" | "Sparklers" | "Bombs" | "Flowerpots" | "Fountains" | "Novelties";
 type Pricing = "Retail" | "Bulk" | "Both";
@@ -22,18 +28,18 @@ interface Product {
 }
 
 const items: Product[] = [
-  { img: blackThunder.url, name: "Black Thunder", desc: "Powerful rockets with bright, thunderous bursts lighting up the sky.", cat: "Rockets", pricing: "Both" },
-  { img: magicRing.url, name: "Magic Ring — Crystal", desc: "Spinning ground chakra with shimmering crystal sparks.", cat: "Sparklers", pricing: "Retail" },
-  { img: knockOut.url, name: "Color Punch — Knock Out", desc: "Multi-color aerial bomb with a knockout finale.", cat: "Bombs", pricing: "Both" },
-  { img: primeGold.url, name: "Prime Series Gold", desc: "Premium gold willow flowerpot — a best-seller showstopper.", cat: "Flowerpots", pricing: "Bulk" },
-  { img: weddingHaasini.url, name: "Wedding Series — Haasini", desc: "Elegant silver fountain with delicate crackling for wedding finales.", cat: "Fountains", pricing: "Bulk" },
-  { img: pinkHeart.url, name: "Pink Heart", desc: "Romantic pink heart novelty — perfect for proposals and celebrations.", cat: "Novelties", pricing: "Retail" },
-  { img: blackThunder.url, name: "Sky Blaster", desc: "High-altitude rocket with cascading silver stars.", cat: "Rockets", pricing: "Bulk" },
-  { img: magicRing.url, name: "Golden Sparkler", desc: "Long-burning gold sparkler for festivals and events.", cat: "Sparklers", pricing: "Retail" },
-  { img: knockOut.url, name: "Thunder Bomb", desc: "Deep bass explosion with vibrant red and green blooms.", cat: "Bombs", pricing: "Both" },
-  { img: primeGold.url, name: "Silver Shower Pot", desc: "Crackling silver flowerpot showering sparks from the ground.", cat: "Flowerpots", pricing: "Both" },
-  { img: weddingHaasini.url, name: "Crackle Fountain", desc: "Continuous crackle fountain with bright silver sparks.", cat: "Fountains", pricing: "Retail" },
-  { img: pinkHeart.url, name: "Spinning Wheel", desc: "Ground-spinning novelty that whirls with colorful flames.", cat: "Novelties", pricing: "Retail" },
+  { img: productAerial, name: "Black Thunder", desc: "Powerful high-altitude rockets that split into thunderous multi-burst bouquets visible from over a kilometre.", cat: "Rockets", pricing: "Both" },
+  { img: productSparklers, name: "Magic Ring — Crystal", desc: "Spinning ground chakra with 90 seconds of shimmering crystal-white sparks — ideal for table décor and processions.", cat: "Sparklers", pricing: "Retail" },
+  { img: productShots, name: "Color Punch — Knock Out", desc: "12-shot aerial barrage delivering alternating red, green, and gold blooms with deep bass reports.", cat: "Bombs", pricing: "Both" },
+  { img: productFestival, name: "Prime Series Gold", desc: "Best-selling gold willow flowerpot with a 3-metre spread — the showstopper of any ground display.", cat: "Flowerpots", pricing: "Bulk" },
+  { img: productFountain, name: "Wedding Series — Haasini", desc: "60-second silver crackle fountain engineered for wedding mandaps — low smoke, high elegance.", cat: "Fountains", pricing: "Bulk" },
+  { img: productWedding, name: "Pink Heart", desc: "Shaped novelty bursting into a vivid pink heart silhouette — perfect for proposals, sangeets, and baby showers.", cat: "Novelties", pricing: "Retail" },
+  { img: gallery1, name: "Sky Titan", desc: "3-inch professional aerial shell with a 6-second rising tail and cascading silver-to-gold chrysanthemum break.", cat: "Rockets", pricing: "Bulk" },
+  { img: gallery2, name: "Rainbow Sparkler", desc: "200mm colour-changing sparkler cycling through gold, green, red, and silver — burns for 2 full minutes.", cat: "Sparklers", pricing: "Retail" },
+  { img: gallery3, name: "Thunder Dome", desc: "Concussion aerial bomb with a deep sonic burst and bright white flash — feels like a stadium finale.", cat: "Bombs", pricing: "Both" },
+  { img: gallery4, name: "Silver Shower Pot", desc: "Wide-spread crackling flowerpot raining dense silver sparks over a 4-metre radius for 45 seconds.", cat: "Flowerpots", pricing: "Both" },
+  { img: gallery5, name: "Golden Rain Fountain", desc: "Continuous golden rain fountain with layered crackling effects — a crowd favourite at festivals and melas.", cat: "Fountains", pricing: "Retail" },
+  { img: gallery6, name: "Spinning Comet", desc: "High-speed ground spinner that launches into a comet-tail fountain — novelty and aerial effect in one.", cat: "Novelties", pricing: "Retail" },
 ];
 
 const cats: Cat[] = ["All", "Rockets", "Sparklers", "Bombs", "Flowerpots", "Fountains", "Novelties"];
