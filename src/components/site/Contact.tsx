@@ -13,6 +13,7 @@ const info = [
 
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [honeypot, setHoneypot] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -21,6 +22,8 @@ export function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Honeypot: bots fill hidden fields, humans don't
+    if (honeypot) return;
     setSubmitting(true);
     try {
       const { error } = await supabase.from("enquiries").insert({
@@ -111,6 +114,16 @@ export function Contact() {
             className="glass relative rounded-3xl p-8 sm:p-10 lg:sticky lg:top-28 lg:self-start"
           >
             <div className="absolute -top-20 -right-10 h-48 w-48 rounded-full bg-glow-gold blur-3xl" />
+            {/* Honeypot — invisible to humans, bots fill it and get silently rejected */}
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              aria-hidden="true"
+              tabIndex={-1}
+              className="absolute -left-[9999px] opacity-0"
+            />
             <div className="relative space-y-6">
               {[
                 { id: "name", label: "Full Name", type: "text", required: true },
