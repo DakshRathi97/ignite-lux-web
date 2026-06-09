@@ -13,4 +13,27 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split heavy animation library (~200KB) into its own chunk
+            "vendor-motion": ["motion/react"],
+            // Split Supabase client (~300KB) into its own chunk
+            "vendor-supabase": ["@supabase/supabase-js"],
+            // Split all Radix UI primitives together
+            "vendor-radix": [
+              "@radix-ui/react-dialog",
+              "@radix-ui/react-dropdown-menu",
+              "@radix-ui/react-select",
+              "@radix-ui/react-tooltip",
+              "@radix-ui/react-accordion",
+              "@radix-ui/react-tabs",
+            ],
+          },
+        },
+      },
+    },
+  },
 });
