@@ -16,39 +16,34 @@ import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
 
 type Cat = "All" | "Rockets" | "Sparklers" | "Bombs" | "Flowerpots" | "Fountains" | "Novelties";
-type Pricing = "Retail" | "Bulk" | "Both";
-type PricingFilter = "All" | Pricing;
 
 interface Product {
   img: string;
   name: string;
   desc: string;
   cat: Exclude<Cat, "All">;
-  pricing: Pricing;
 }
 
 const items: Product[] = [
-  { img: productAerial, name: "Black Thunder", desc: "Powerful high-altitude rockets that split into thunderous multi-burst bouquets visible from over a kilometre.", cat: "Rockets", pricing: "Both" },
-  { img: productSparklers, name: "Magic Ring — Crystal", desc: "Spinning ground chakra with 90 seconds of shimmering crystal-white sparks — ideal for table décor and processions.", cat: "Sparklers", pricing: "Retail" },
-  { img: productShots, name: "Color Punch — Knock Out", desc: "12-shot aerial barrage delivering alternating red, green, and gold blooms with deep bass reports.", cat: "Bombs", pricing: "Both" },
-  { img: productFestival, name: "Prime Series Gold", desc: "Best-selling gold willow flowerpot with a 3-metre spread — the showstopper of any ground display.", cat: "Flowerpots", pricing: "Bulk" },
-  { img: productFountain, name: "Wedding Series — Haasini", desc: "60-second silver crackle fountain engineered for wedding mandaps — low smoke, high elegance.", cat: "Fountains", pricing: "Bulk" },
-  { img: productWedding, name: "Pink Heart", desc: "Shaped novelty bursting into a vivid pink heart silhouette — perfect for proposals, sangeets, and baby showers.", cat: "Novelties", pricing: "Retail" },
-  { img: gallery1, name: "Sky Titan", desc: "3-inch professional aerial shell with a 6-second rising tail and cascading silver-to-gold chrysanthemum break.", cat: "Rockets", pricing: "Bulk" },
-  { img: gallery2, name: "Rainbow Sparkler", desc: "200mm colour-changing sparkler cycling through gold, green, red, and silver — burns for 2 full minutes.", cat: "Sparklers", pricing: "Retail" },
-  { img: gallery3, name: "Thunder Dome", desc: "Concussion aerial bomb with a deep sonic burst and bright white flash — feels like a stadium finale.", cat: "Bombs", pricing: "Both" },
-  { img: gallery4, name: "Silver Shower Pot", desc: "Wide-spread crackling flowerpot raining dense silver sparks over a 4-metre radius for 45 seconds.", cat: "Flowerpots", pricing: "Both" },
-  { img: gallery5, name: "Golden Rain Fountain", desc: "Continuous golden rain fountain with layered crackling effects — a crowd favourite at festivals and melas.", cat: "Fountains", pricing: "Retail" },
-  { img: gallery6, name: "Spinning Comet", desc: "High-speed ground spinner that launches into a comet-tail fountain — novelty and aerial effect in one.", cat: "Novelties", pricing: "Retail" },
+  { img: productAerial, name: "Black Thunder", desc: "Powerful high-altitude rockets that split into thunderous multi-burst bouquets visible from over a kilometre.", cat: "Rockets" },
+  { img: productSparklers, name: "Magic Ring — Crystal", desc: "Spinning ground chakra with 90 seconds of shimmering crystal-white sparks — ideal for table décor and processions.", cat: "Sparklers" },
+  { img: productShots, name: "Color Punch — Knock Out", desc: "12-shot aerial barrage delivering alternating red, green, and gold blooms with deep bass reports.", cat: "Bombs" },
+  { img: productFestival, name: "Prime Series Gold", desc: "Best-selling gold willow flowerpot with a 3-metre spread — the showstopper of any ground display.", cat: "Flowerpots" },
+  { img: productFountain, name: "Wedding Series — Haasini", desc: "60-second silver crackle fountain engineered for wedding mandaps — low smoke, high elegance.", cat: "Fountains" },
+  { img: productWedding, name: "Pink Heart", desc: "Shaped novelty bursting into a vivid pink heart silhouette — perfect for proposals, sangeets, and baby showers.", cat: "Novelties" },
+  { img: gallery1, name: "Sky Titan", desc: "3-inch professional aerial shell with a 6-second rising tail and cascading silver-to-gold chrysanthemum break.", cat: "Rockets" },
+  { img: gallery2, name: "Rainbow Sparkler", desc: "200mm colour-changing sparkler cycling through gold, green, red, and silver — burns for 2 full minutes.", cat: "Sparklers" },
+  { img: gallery3, name: "Thunder Dome", desc: "Concussion aerial bomb with a deep sonic burst and bright white flash — feels like a stadium finale.", cat: "Bombs" },
+  { img: gallery4, name: "Silver Shower Pot", desc: "Wide-spread crackling flowerpot raining dense silver sparks over a 4-metre radius for 45 seconds.", cat: "Flowerpots" },
+  { img: gallery5, name: "Golden Rain Fountain", desc: "Continuous golden rain fountain with layered crackling effects — a crowd favourite at festivals and melas.", cat: "Fountains" },
+  { img: gallery6, name: "Spinning Comet", desc: "High-speed ground spinner that launches into a comet-tail fountain — novelty and aerial effect in one.", cat: "Novelties" },
 ];
 
 const cats: Cat[] = ["All", "Rockets", "Sparklers", "Bombs", "Flowerpots", "Fountains", "Novelties"];
-const pricingOpts: PricingFilter[] = ["All", "Retail", "Bulk"];
 
 export function Products() {
   const [search, setSearch] = useState("");
   const [activeCat, setActiveCat] = useState<Cat>("All");
-  const [activePricing, setActivePricing] = useState<PricingFilter>("All");
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -59,13 +54,9 @@ export function Products() {
         it.desc.toLowerCase().includes(q) ||
         it.cat.toLowerCase().includes(q);
       const matchesCat = activeCat === "All" || it.cat === activeCat;
-      const matchesPricing =
-        activePricing === "All" ||
-        it.pricing === activePricing ||
-        it.pricing === "Both";
-      return matchesSearch && matchesCat && matchesPricing;
+      return matchesSearch && matchesCat;
     });
-  }, [search, activeCat, activePricing]);
+  }, [search, activeCat]);
 
   return (
     <section id="products" className="relative py-32 lg:py-40">
@@ -84,35 +75,16 @@ export function Products() {
 
         {/* Search + Filters */}
         <div className="mt-10 flex flex-col gap-5">
-          {/* Search bar + Pricing toggle */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <div className="relative flex-1">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Search firecrackers..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 pl-11 pr-4 text-sm text-foreground placeholder:text-muted-foreground/60 backdrop-blur-sm transition focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/30"
-              />
-            </div>
-
-            {/* Retail / Bulk segmented toggle */}
-            <div className="flex shrink-0 rounded-full border border-white/10 bg-white/[0.03] p-1 backdrop-blur-sm">
-              {pricingOpts.map((p) => (
-                <button
-                  key={p}
-                  onClick={() => setActivePricing(p)}
-                  className={`rounded-full px-4 py-2 text-xs font-medium uppercase tracking-wider transition ${
-                    activePricing === p
-                      ? "bg-primary/15 text-primary"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
+          {/* Search bar */}
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search firecrackers..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3.5 pl-11 pr-4 text-sm text-foreground placeholder:text-muted-foreground/60 backdrop-blur-sm transition focus:border-primary/40 focus:outline-none focus:ring-1 focus:ring-primary/30"
+            />
           </div>
 
           {/* Category pills */}
@@ -159,11 +131,6 @@ export function Products() {
                   <span className="absolute left-5 top-5 rounded-full border border-white/15 bg-background/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground backdrop-blur">
                     {it.cat}
                   </span>
-                  {it.pricing !== "Both" && (
-                    <span className="absolute right-5 top-5 rounded-full border border-white/15 bg-background/60 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-primary backdrop-blur">
-                      {it.pricing}
-                    </span>
-                  )}
                 </div>
                 <div className="relative -mt-20 p-6">
                   <h3 className="font-display text-xl font-medium text-foreground">{it.name}</h3>
@@ -191,7 +158,6 @@ export function Products() {
                 onClick={() => {
                   setSearch("");
                   setActiveCat("All");
-                  setActivePricing("All");
                 }}
                 className="mt-4 text-sm text-primary underline underline-offset-4 transition hover:text-primary/80"
               >
