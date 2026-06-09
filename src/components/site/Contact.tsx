@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
-import { Mail, MapPin, Phone, Instagram, Facebook, Youtube, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Phone, Instagram, Facebook, Youtube, ArrowRight, CheckCircle } from "lucide-react";
 import { SectionHeading, SectionLabel } from "./Section";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
 
 const info = [
   { icon: Phone, label: "Phone", value: "+91 94085 87316" },
@@ -13,6 +14,7 @@ const info = [
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (id: string, value: string) =>
     setForm((f) => ({ ...f, [id]: value }));
@@ -20,9 +22,23 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setSubmitting(false);
-    toast.success("Thank you — we'll be in touch within 24 hours.");
-    setForm({ name: "", email: "", phone: "", message: "" });
+    try {
+      const { error } = await supabase.from("enquiries").insert({
+        full_name: form.name,
+        email: form.email || null,
+        phone: form.phone,
+        message: form.message,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+      toast.success("Thank you — we'll be in touch within 24 hours.");
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } catch (err) {
+      console.error("Enquiry submission error:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -130,11 +146,28 @@ export function Contact() {
               </div>
               <button
                 type="submit"
-                disabled={submitting}
+                disabled={submitting || submitted}
                 className="group mt-4 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[0_0_35px_-6px_rgba(245,183,0,0.7)] transition hover:shadow-[0_0_55px_-4px_rgba(245,183,0,1)] disabled:opacity-60"
               >
-                {submitting ? "Sending..." : "Send Enquiry"}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                {submitted ? (
+                  <>
+                    Enquiry Sent
+                    <CheckCircle className="h-4 w-4" />
+                  </>
+                ) : submitting ? (
+                  <>
+                    Sending...
+                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                    </svg>
+                  </>
+                ) : (
+                  <>
+                    Send Enquiry
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </>
+                )}
               </button>
             </div>
           </motion.form>
