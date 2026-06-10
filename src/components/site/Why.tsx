@@ -42,8 +42,8 @@ export function Why() {
             </motion.div>
           ))}
           {/* Filler tile */}
-          <div className="relative hidden bg-background/80 p-10 lg:block">
-            <div className="absolute inset-0 bg-glow-fire opacity-50" />
+          <div className="relative hidden overflow-hidden bg-background/80 p-10 lg:block">
+            <div className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-glow-fire blur-3xl" />
             <div className="relative flex h-full flex-col justify-end">
               <p className="font-display text-2xl font-light leading-snug">
                 <span className="text-gradient-gold font-semibold">Crafted</span> in India.
