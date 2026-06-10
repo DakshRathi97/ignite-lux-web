@@ -25,8 +25,8 @@ export function Testimonials() {
       </div>
 
       <div className="relative mt-16">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent sm:w-32" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent sm:w-32" />
         <motion.div
           className="flex gap-6"
           animate={{ x: ["0%", "-50%"] }}
@@ -35,9 +35,9 @@ export function Testimonials() {
           {loop.map((r, i) => (
             <article
               key={i}
-              className="glass hover-glow w-[360px] shrink-0 rounded-3xl p-8"
+              className="glass hover-glow w-[300px] shrink-0 rounded-3xl p-8 sm:w-[360px]"
             >
-              <div className="mb-5 text-2xl text-primary/70">"</div>
+              <div className="mb-5 font-display text-5xl leading-none text-primary/60">“</div>
               <p className="text-base leading-relaxed text-foreground/90">{r.quote}</p>
               <div className="mt-8 border-t border-white/10 pt-5">
                 <p className="font-display text-sm font-medium">{r.name}</p>

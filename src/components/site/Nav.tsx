@@ -70,7 +70,7 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="border-t border-white/5 bg-background/95 backdrop-blur-xl md:hidden">
+        <div className="animate-in fade-in slide-in-from-top-2 duration-300 border-t border-white/5 bg-background/95 backdrop-blur-xl md:hidden">
           <ul className="mx-auto flex max-w-7xl flex-col px-6 py-4">
             {links.map((l) => (
               <li key={l.href}>
@@ -83,6 +83,15 @@ export function Nav() {
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="mb-2 mt-3 inline-block rounded-full border border-primary/40 bg-primary/10 px-5 py-2 text-sm font-medium text-primary"
+              >
+                Get Quote
+              </a>
+            </li>
           </ul>
         </div>
       )}

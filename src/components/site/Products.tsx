@@ -135,9 +135,13 @@ export function Products() {
                 <div className="relative -mt-20 p-6">
                   <h3 className="font-display text-xl font-medium text-foreground">{it.name}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{it.desc}</p>
-                  <div className="mt-5 flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                  <a
+                    href="#contact"
+                    aria-label={`Enquire about ${it.name}`}
+                    className="mt-5 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-primary transition-opacity hover:text-primary/80 lg:opacity-0 lg:group-hover:opacity-100"
+                  >
                     Enquire <span aria-hidden>→</span>
-                  </div>
+                  </a>
                 </div>
               </motion.article>
             ))}
