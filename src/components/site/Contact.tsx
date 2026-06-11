@@ -64,8 +64,8 @@ export function Contact() {
             <ul className="mt-10 space-y-5">
               {info.map((i) => (
                 <li key={i.label} className="flex items-start gap-4">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-secondary">
-                    <i.icon className="h-4 w-4 text-primary" strokeWidth={2} />
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary">
+                    <i.icon className="h-4 w-4 text-primary-foreground" strokeWidth={2} />
                   </span>
                   <div>
                     <p className="text-sm font-medium text-muted-foreground">{i.label}</p>
@@ -81,7 +81,7 @@ export function Contact() {
                   key={idx}
                   href="#"
                   aria-label="Social link"
-                  className="grid h-10 w-10 place-items-center rounded-lg border border-border bg-surface text-muted-foreground transition hover:border-primary/50 hover:text-primary"
+                  className="grid h-10 w-10 place-items-center rounded-lg border border-border bg-surface text-muted-foreground transition hover:bg-primary hover:text-primary-foreground"
                 >
                   <Ic className="h-4 w-4" strokeWidth={2} />
                 </a>

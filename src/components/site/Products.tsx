@@ -145,7 +145,7 @@ export function Products() {
                 className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
                   activeCat === c
                     ? "bg-primary text-primary-foreground shadow-sm"
-                    : "border border-border bg-surface text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                    : "border border-border bg-surface text-muted-foreground hover:border-foreground/30 hover:text-foreground"
                 }`}
               >
                 {c}
@@ -186,7 +186,7 @@ export function Products() {
                   <a
                     href="#contact"
                     aria-label={`Enquire about ${it.name}`}
-                    className="mt-auto inline-flex items-center gap-1 pt-3 text-sm font-semibold text-primary hover:text-primary/80"
+                    className="mt-auto inline-flex items-center gap-1 pt-3 text-sm font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4 transition-all hover:decoration-4"
                   >
                     Enquire <span aria-hidden>→</span>
                   </a>
@@ -211,7 +211,7 @@ export function Products() {
                   setSearch("");
                   setActiveCat("All");
                 }}
-                className="mt-3 text-sm font-semibold text-primary underline underline-offset-4 hover:text-primary/80"
+                className="mt-3 text-sm font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:decoration-4"
               >
                 Clear all filters
               </button>

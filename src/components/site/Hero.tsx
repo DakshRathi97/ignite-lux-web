@@ -22,7 +22,7 @@ export function Hero() {
           </p>
           <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-[3.4rem]">
             Premium fireworks for every{" "}
-            <span className="text-primary">celebration</span>
+            <span className="rounded-xl bg-primary px-3 text-foreground">celebration</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg text-muted-foreground">
             From weddings and festivals to brand events — explore our range of

@@ -31,7 +31,7 @@ export function Nav() {
             K
           </span>
           <span className="text-base font-bold tracking-tight text-foreground">
-            Krishiv Pyro <span className="text-primary">LLP</span>
+            Krishiv Pyro LLP
           </span>
         </a>
 

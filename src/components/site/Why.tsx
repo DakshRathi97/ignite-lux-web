@@ -30,8 +30,8 @@ export function Why() {
               transition={{ duration: 0.4, delay: i * 0.04 }}
               className="rounded-xl border border-border bg-card p-6 shadow-sm"
             >
-              <div className="mb-4 inline-grid h-11 w-11 place-items-center rounded-lg bg-secondary">
-                <f.icon className="h-5 w-5 text-primary" strokeWidth={2} />
+              <div className="mb-4 inline-grid h-11 w-11 place-items-center rounded-lg bg-primary">
+                <f.icon className="h-5 w-5 text-primary-foreground" strokeWidth={2} />
               </div>
               <h3 className="text-base font-semibold text-foreground">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
