@@ -22,7 +22,7 @@ export function Hero() {
           </p>
           <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-[3.4rem]">
             Premium fireworks for every{" "}
-            <span className="rounded-xl bg-primary px-3 text-foreground">celebration</span>
+            <span className="text-primary">celebration</span>
           </h1>
           <p className="mt-5 max-w-xl text-lg text-muted-foreground">
             From weddings and festivals to brand events — explore our range of
@@ -63,13 +63,13 @@ export function Hero() {
         >
           <img
             src={facilityImg}
-            alt="The Krishiv Pyro LLP facility"
+            alt="The Krishiv Pyro LLP showroom"
             width={1280}
             height={675}
             className="w-full rounded-2xl border border-border object-cover shadow-md"
           />
           <p className="mt-3 text-center text-sm text-muted-foreground">
-            Our facility at Limbhoi
+            Our showroom at Limbhoi
           </p>
         </motion.div>
       </div>

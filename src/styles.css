@@ -79,8 +79,8 @@
   --card-foreground: oklch(0.25 0.015 60);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.25 0.015 60);
-  --primary: oklch(0.94 0.115 105);              /* #F7EF8A butter yellow */
-  --primary-foreground: oklch(0.3 0.05 100);     /* dark olive text on yellow */
+  --primary: oklch(0.74 0.165 72);               /* bright celebration gold */
+  --primary-foreground: oklch(0.28 0.04 80);     /* dark text on gold */
   --secondary: oklch(0.955 0.008 85);
   --secondary-foreground: oklch(0.25 0.015 60);
   --muted: oklch(0.955 0.008 85);
@@ -91,8 +91,8 @@
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.9 0.01 85);
   --input: oklch(0.87 0.012 85);
-  --ring: oklch(0.78 0.12 103 / 55%);
-  --gold: oklch(0.94 0.115 105);
+  --ring: oklch(0.74 0.165 72 / 50%);
+  --gold: oklch(0.8 0.15 80);
   --fire: oklch(0.62 0.19 35);
   --ember: oklch(0.55 0.17 27);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -141,7 +141,7 @@
   }
 
   ::selection {
-    background: oklch(0.94 0.115 105 / 55%);
+    background: oklch(0.8 0.15 80 / 35%);
     color: var(--foreground);
   }
 
