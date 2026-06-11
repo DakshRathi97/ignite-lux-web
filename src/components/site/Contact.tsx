@@ -8,7 +8,7 @@ import { supabase } from "@/lib/supabase";
 const info = [
   { icon: Phone, label: "Phone", value: "+91 94085 87316" },
   { icon: Mail, label: "Email", value: "krishivpyrollp@gmail.com" },
-  { icon: MapPin, label: "Address", value: "NA 783, Limbhoi, Postal code - 383316" },
+  { icon: MapPin, label: "Address", value: "Survey No. NA783, Limbhoi, Gujarat 383316" },
 ];
 
 export function Contact() {
@@ -91,7 +91,7 @@ export function Contact() {
             <div className="mt-8 overflow-hidden rounded-xl border border-border shadow-sm">
               <iframe
                 title="Krishiv Pyro Location"
-                src="https://www.google.com/maps?q=NA+783+Limbhoi+383316&output=embed"
+                src="https://www.google.com/maps?q=KRISHIV+PYRO+LLP,+Survey+No.+NA783,+Limbhoi,+Gujarat+383316&output=embed"
                 width="100%"
                 height="240"
                 loading="lazy"

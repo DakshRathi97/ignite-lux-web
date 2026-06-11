@@ -7,6 +7,7 @@ const reviews = [
   { quote: "Their Diwali collection lit up our entire township. Quality you can feel in every box.", name: "Rohan Sharma", loc: "Pune" },
   { quote: "Premium product, premium service. The aerial display was nothing short of cinematic.", name: "Saira Khan", loc: "Delhi" },
   { quote: "Reliable, on time, and great value. They genuinely understand what each occasion needs.", name: "Karthik Iyer", loc: "Chennai" },
+  { quote: "Ordered in bulk for our society's Diwali night — fresh stock, fair rates, and every box fired perfectly.", name: "Nilesh Patel", loc: "Ahmedabad" },
 ];
 
 export function Testimonials() {
