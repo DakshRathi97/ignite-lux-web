@@ -10,12 +10,12 @@ import g5 from "@/assets/store/range-sunrise.jpg";
 import g6 from "@/assets/store/showroom.jpg";
 
 const imgs = [
-  { src: g1, alt: "Tower Series and Ultra Series boxes on showroom shelves" },
-  { src: g2, alt: "Color Punch and Prime Series 3.0 boxes on display" },
-  { src: g3, alt: "Wedding Series fountains lined up on a shelf" },
-  { src: g4, alt: "Magic Ring ground spinners in four colours" },
-  { src: g5, alt: "Sunrise Series morning crackers on a shelf" },
-  { src: g6, alt: "Wide view of the Krishiv Pyro showroom wall" },
+  { src: g1, w: 825, h: 1100, alt: "Tower Series and Ultra Series boxes on showroom shelves" },
+  { src: g2, w: 1021, h: 1100, alt: "Color Punch and Prime Series 3.0 boxes on display" },
+  { src: g3, w: 1200, h: 683, alt: "Wedding Series fountains lined up on a shelf" },
+  { src: g4, w: 1200, h: 748, alt: "Magic Ring ground spinners in four colours" },
+  { src: g5, w: 1200, h: 707, alt: "Sunrise Series morning crackers on a shelf" },
+  { src: g6, w: 1400, h: 846, alt: "Wide view of the Krishiv Pyro showroom wall" },
 ];
 
 export function Gallery() {
@@ -45,8 +45,10 @@ export function Gallery() {
               <img
                 src={img.src}
                 alt={img.alt}
+                width={img.w}
+                height={img.h}
                 loading="lazy"
-                className="w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+                className="h-auto w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
               />
             </motion.button>
           ))}

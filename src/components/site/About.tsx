@@ -15,8 +15,8 @@ export function About() {
           <img
             src={aboutImg}
             alt="Prime Series and Super Heroes fireworks boxes on display"
-            width={1100}
-            height={1466}
+            width={825}
+            height={1100}
             loading="lazy"
             className="mx-auto w-full max-w-md rounded-2xl border border-border object-cover shadow-md"
           />
