@@ -155,7 +155,7 @@ export function Products() {
         </div>
 
         {/* Product grid */}
-        <motion.div layout className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+        <motion.div layout className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((it) => (
               <motion.article
@@ -167,22 +167,22 @@ export function Products() {
                 transition={{ duration: 0.3 }}
                 className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
               >
-                <div className="aspect-[4/5] overflow-hidden bg-muted">
+                <div className="aspect-[3/4] overflow-hidden bg-secondary/60 p-3">
                   <img
                     src={it.img}
                     alt={it.name}
                     width={700}
-                    height={875}
+                    height={933}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-4">
                   <p className="text-xs font-medium text-muted-foreground">{it.cat}</p>
-                  <h3 className="mt-1 text-sm font-semibold leading-snug text-foreground sm:text-base">
+                  <h3 className="mt-1 text-base font-semibold leading-snug text-foreground">
                     {it.name}
                   </h3>
-                  <p className="mt-1 hidden text-sm text-muted-foreground sm:block">{it.desc}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{it.desc}</p>
                   <a
                     href="#contact"
                     aria-label={`Enquire about ${it.name}`}
