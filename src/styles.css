@@ -79,8 +79,8 @@
   --card-foreground: oklch(0.25 0.015 60);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.25 0.015 60);
-  --primary: oklch(0.57 0.2 27);                 /* festive coral red */
-  --primary-foreground: oklch(1 0 0);
+  --primary: oklch(0.67 0.16 65);                /* marigold gold */
+  --primary-foreground: oklch(0.22 0.02 60);     /* dark text on gold */
   --secondary: oklch(0.955 0.008 85);
   --secondary-foreground: oklch(0.25 0.015 60);
   --muted: oklch(0.955 0.008 85);
@@ -91,7 +91,7 @@
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.9 0.01 85);
   --input: oklch(0.87 0.012 85);
-  --ring: oklch(0.57 0.2 27 / 40%);
+  --ring: oklch(0.67 0.16 65 / 45%);
   --gold: oklch(0.75 0.14 80);
   --fire: oklch(0.62 0.19 35);
   --ember: oklch(0.55 0.17 27);

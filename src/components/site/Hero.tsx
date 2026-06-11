@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import showroomImg from "@/assets/store/showroom.jpg";
+import facilityImg from "@/assets/store/facility.jpg";
 
 const stats = [
   { v: "20+", l: "Years of craft" },
@@ -62,14 +62,14 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.15 }}
         >
           <img
-            src={showroomImg}
-            alt="Inside the Krishiv Pyro showroom — shelves stocked with fireworks"
-            width={1400}
-            height={846}
+            src={facilityImg}
+            alt="The Krishiv Pyro LLP facility"
+            width={1280}
+            height={675}
             className="w-full rounded-2xl border border-border object-cover shadow-md"
           />
           <p className="mt-3 text-center text-sm text-muted-foreground">
-            Our showroom — stocked for the season
+            Our facility at Limbhoi
           </p>
         </motion.div>
       </div>
