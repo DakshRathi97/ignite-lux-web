@@ -2,52 +2,40 @@ import { motion } from "motion/react";
 import { SectionHeading, SectionLabel } from "./Section";
 
 const reviews = [
-  { quote: "Krishiv Pyro turned our wedding finale into a memory we'll never forget. Flawless choreography.", name: "Aarav & Ishita", loc: "Udaipur" },
-  { quote: "The level of polish and safety is unmatched. They're our default choice for every brand event.", name: "Meera Kapoor", loc: "Mumbai" },
-  { quote: "Their Diwali collection lit up our entire township. Quality you can feel in every shell.", name: "Rohan Sharma", loc: "Pune" },
+  { quote: "Krishiv Pyro turned our wedding finale into a memory we'll never forget. Flawless from start to finish.", name: "Aarav & Ishita", loc: "Udaipur" },
+  { quote: "The level of quality and safety is unmatched. They're our default choice for every brand event.", name: "Meera Kapoor", loc: "Mumbai" },
+  { quote: "Their Diwali collection lit up our entire township. Quality you can feel in every box.", name: "Rohan Sharma", loc: "Pune" },
   { quote: "Premium product, premium service. The aerial display was nothing short of cinematic.", name: "Saira Khan", loc: "Delhi" },
-  { quote: "Reliable, on time, and visually stunning. They understand celebration as an art form.", name: "Karthik Iyer", loc: "Chennai" },
+  { quote: "Reliable, on time, and great value. They genuinely understand what each occasion needs.", name: "Karthik Iyer", loc: "Chennai" },
 ];
 
 export function Testimonials() {
-  // Duplicate list for seamless marquee
-  const loop = [...reviews, ...reviews];
   return (
-    <section className="relative overflow-hidden bg-surface/30 py-32 lg:py-40">
+    <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="max-w-2xl">
           <SectionLabel>Testimonials</SectionLabel>
-          <SectionHeading>
-            Trusted by hosts of{" "}
-            <span className="text-gradient-gold font-semibold">unforgettable</span> nights.
-          </SectionHeading>
+          <SectionHeading>What customers say</SectionHeading>
         </div>
-      </div>
 
-      <div className="relative mt-16">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-background to-transparent sm:w-32" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-background to-transparent sm:w-32" />
-        <motion.div
-          className="flex gap-6"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 45, ease: "linear", repeat: Infinity }}
-        >
-          {loop.map((r, i) => (
-            <article
-              key={i}
-              className="glass hover-glow w-[300px] shrink-0 rounded-3xl p-8 sm:w-[360px]"
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {reviews.map((r, i) => (
+            <motion.article
+              key={r.name}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              className="flex flex-col rounded-xl border border-border bg-card p-6 shadow-sm"
             >
-              <div className="mb-5 font-display text-5xl leading-none text-primary/60">“</div>
-              <p className="text-base leading-relaxed text-foreground/90">{r.quote}</p>
-              <div className="mt-8 border-t border-white/10 pt-5">
-                <p className="font-display text-sm font-medium">{r.name}</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {r.loc}
-                </p>
+              <p className="flex-1 leading-relaxed text-foreground">"{r.quote}"</p>
+              <div className="mt-5 border-t border-border pt-4">
+                <p className="text-sm font-semibold text-foreground">{r.name}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{r.loc}</p>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

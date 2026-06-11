@@ -2,47 +2,52 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import { SectionHeading, SectionLabel } from "./Section";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g3 from "@/assets/gallery-3.jpg";
-import g4 from "@/assets/gallery-4.jpg";
-import g5 from "@/assets/gallery-5.jpg";
-import g6 from "@/assets/gallery-6.jpg";
+import g1 from "@/assets/store/range-towers.jpg";
+import g2 from "@/assets/store/range-prime.jpg";
+import g3 from "@/assets/store/range-wedding.jpg";
+import g4 from "@/assets/store/range-magic-ring.jpg";
+import g5 from "@/assets/store/range-sunrise.jpg";
+import g6 from "@/assets/store/showroom.jpg";
 
-const imgs = [g1, g2, g3, g4, g5, g6];
+const imgs = [
+  { src: g1, alt: "Tower Series and Ultra Series boxes on showroom shelves" },
+  { src: g2, alt: "Color Punch and Prime Series 3.0 boxes on display" },
+  { src: g3, alt: "Wedding Series fountains lined up on a shelf" },
+  { src: g4, alt: "Magic Ring ground spinners in four colours" },
+  { src: g5, alt: "Sunrise Series morning crackers on a shelf" },
+  { src: g6, alt: "Wide view of the Krishiv Pyro showroom wall" },
+];
 
 export function Gallery() {
   const [open, setOpen] = useState<string | null>(null);
   return (
-    <section id="gallery" className="relative py-32 lg:py-40">
+    <section id="gallery" className="border-y border-border bg-surface-elevated/60 py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <SectionLabel>Gallery</SectionLabel>
-          <SectionHeading>
-            Moments in <span className="text-gradient-gold font-semibold">motion</span>.
-          </SectionHeading>
+          <SectionHeading>Inside our showroom</SectionHeading>
+          <p className="mt-4 text-muted-foreground">
+            Real shelves, real stock — drop by and see the range in person.
+          </p>
         </div>
 
-        <div className="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
-          {imgs.map((src, i) => (
+        <div className="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
+          {imgs.map((img, i) => (
             <motion.button
-              key={src}
-              initial={{ opacity: 0, y: 30 }}
+              key={img.src}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: (i % 3) * 0.1 }}
-              onClick={() => setOpen(src)}
-              className="group block w-full overflow-hidden rounded-2xl border border-white/10"
+              transition={{ duration: 0.4, delay: (i % 3) * 0.06 }}
+              onClick={() => setOpen(img.src)}
+              className="block w-full overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="relative overflow-hidden">
-                <img
-                  src={src}
-                  alt={`Fireworks moment ${i + 1}`}
-                  loading="lazy"
-                  className="w-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              </div>
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                className="w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+              />
             </motion.button>
           ))}
         </div>
@@ -55,19 +60,19 @@ export function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setOpen(null)}
-            className="fixed inset-0 z-[100] grid place-items-center bg-background/90 p-6 backdrop-blur-xl"
+            className="fixed inset-0 z-[100] grid place-items-center bg-foreground/80 p-6 backdrop-blur-sm"
           >
             <motion.img
-              initial={{ scale: 0.95, opacity: 0 }}
+              initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              exit={{ scale: 0.96, opacity: 0 }}
               src={open}
-              alt="Preview"
-              className="max-h-[88vh] w-auto rounded-2xl border border-white/10 object-contain shadow-2xl"
+              alt="Showroom preview"
+              className="max-h-[88vh] w-auto rounded-xl object-contain shadow-2xl"
             />
             <button
               aria-label="Close"
-              className="absolute right-6 top-6 grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-background/60 text-foreground backdrop-blur transition hover:border-primary/50"
+              className="absolute right-6 top-6 grid h-11 w-11 place-items-center rounded-full bg-surface text-foreground shadow-md"
             >
               <X className="h-5 w-5" />
             </button>

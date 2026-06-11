@@ -1,73 +1,52 @@
 import { motion } from "motion/react";
 import { SectionHeading, SectionLabel } from "./Section";
-import aboutImg from "@/assets/gallery-3.jpg";
-
-const stats = [
-  { v: "20+", l: "Years of Craft" },
-  { v: "500+", l: "Events Lit" },
-  { v: "100%", l: "Safety Certified" },
-];
+import aboutImg from "@/assets/store/range-prime-gold.jpg";
 
 export function About() {
   return (
-    <section id="about" className="relative py-32 lg:py-40">
-      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2 lg:items-center lg:gap-24 lg:px-10">
+    <section id="about" className="py-16 lg:py-24">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-10">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="relative"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="relative overflow-hidden rounded-3xl border border-white/10">
-            <img
-              src={aboutImg}
-              alt="Fireworks reflecting on water at night"
-              width={900}
-              height={900}
-              loading="lazy"
-              className="aspect-[4/5] w-full object-cover transition-transform duration-[1.5s] hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-          </div>
-          <div className="absolute -bottom-6 -right-6 h-40 w-40 rounded-full bg-glow-gold blur-2xl" />
+          <img
+            src={aboutImg}
+            alt="Prime Series and Super Heroes fireworks boxes on display"
+            width={1100}
+            height={1466}
+            loading="lazy"
+            className="mx-auto w-full max-w-md rounded-2xl border border-border object-cover shadow-md"
+          />
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <SectionLabel>About Us</SectionLabel>
-          <SectionHeading>
-            Crafted for moments that{" "}
-            <span className="text-gradient-gold font-semibold">deserve light</span>.
-          </SectionHeading>
-          <p className="mt-8 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Krishiv Pyro LLP is a premium Indian fireworks house dedicated to the art of
-            celebration. We engineer every shell, sparkler, and finale with obsessive
-            attention to quality, safety, and choreography — so your moments arrive in
-            colour, exactly when they should.
+          <SectionLabel>About us</SectionLabel>
+          <SectionHeading>A family business built on celebrations</SectionHeading>
+          <p className="mt-6 leading-relaxed text-muted-foreground">
+            Krishiv Pyro LLP brings premium fireworks from Sivakasi — the home
+            of Indian pyrotechnics — to weddings, festivals, and events across
+            the country. Every product we stock is selected for quality,
+            reliability, and safety.
           </p>
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            From intimate weddings to national festivals, our pyrotechnics are
-            manufactured in certified facilities, batch-tested for reliability, and
-            distributed nationwide through a trusted network.
+          <p className="mt-4 leading-relaxed text-muted-foreground">
+            From the Tower Series sky shots to Wedding Series fountains and
+            kids' favourites, our showroom carries the full range from trusted
+            makers — with honest advice on what suits your occasion and budget.
           </p>
-
-          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-10">
-            {stats.map((s) => (
-              <div key={s.l}>
-                <dt className="font-display text-3xl font-light text-foreground sm:text-4xl">
-                  <span className="text-gradient-gold font-semibold">{s.v}</span>
-                </dt>
-                <dd className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {s.l}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <a
+            href="#products"
+            className="mt-8 inline-block rounded-lg border border-border bg-surface px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-secondary"
+          >
+            See the full range
+          </a>
         </motion.div>
       </div>
     </section>

@@ -1,94 +1,78 @@
 import { motion } from "motion/react";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import heroImg from "@/assets/hero-fireworks.jpg";
-import { Sparks } from "./Sparks";
+import { ArrowRight } from "lucide-react";
+import showroomImg from "@/assets/store/showroom.jpg";
+
+const stats = [
+  { v: "20+", l: "Years of craft" },
+  { v: "500+", l: "Events supplied" },
+  { v: "100%", l: "Safety certified" },
+];
 
 export function Hero() {
   return (
-    <section
-      id="top"
-      className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-background"
-    >
-      {/* Backdrop image */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src={heroImg}
-          alt=""
-          width={1920}
-          height={1280}
-          className="h-full w-full object-cover opacity-50"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--background)_80%)]" />
-      </div>
-
-      <Sparks count={28} />
-
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 pt-32 pb-24 text-center">
+    <section id="top" className="border-b border-border bg-surface">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 pb-16 pt-28 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:pb-24 lg:pt-36">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs uppercase tracking-[0.25em] text-muted-foreground backdrop-blur"
+          transition={{ duration: 0.6 }}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_8px_var(--gold)]" />
-          Krishiv Pyro LLP
+          <p className="mb-4 inline-block rounded-full bg-secondary px-3 py-1 text-sm font-medium text-muted-foreground">
+            Fireworks wholesaler &amp; retailer — Sivakasi sourced
+          </p>
+          <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-[3.4rem]">
+            Premium fireworks for every{" "}
+            <span className="text-primary">celebration</span>
+          </h1>
+          <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+            From weddings and festivals to brand events — explore our range of
+            sky shots, fountains, sparklers, and gift boxes from India's most
+            trusted makers.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href="#products"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90"
+            >
+              Browse products
+              <ArrowRight className="h-4 w-4" />
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-5 py-3 text-sm font-semibold text-foreground transition hover:bg-secondary"
+            >
+              Contact us
+            </a>
+          </div>
+
+          <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-4 border-t border-border pt-6">
+            {stats.map((s) => (
+              <div key={s.l}>
+                <dt className="text-2xl font-bold text-foreground">{s.v}</dt>
+                <dd className="mt-0.5 text-sm text-muted-foreground">{s.l}</dd>
+              </div>
+            ))}
+          </dl>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1 }}
-          className="font-display text-5xl font-light leading-[1.08] text-foreground sm:text-6xl md:text-7xl lg:text-[5.25rem]"
-        >
-          Lighting Celebrations
-          <br />
-          With <span className="text-gradient-gold font-semibold">Precision</span> &{" "}
-          <span className="text-gradient-gold font-semibold">Passion</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.25 }}
-          className="mt-8 max-w-xl text-base text-muted-foreground sm:text-lg"
-        >
-          Premium fireworks crafted for unforgettable moments across India.
-        </motion.p>
-
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mt-12 flex flex-col items-center gap-4 sm:flex-row"
+          transition={{ duration: 0.6, delay: 0.15 }}
         >
-          <a
-            href="#products"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-[0_0_40px_-6px_rgba(245,183,0,0.6)] transition hover:shadow-[0_0_60px_-4px_rgba(245,183,0,0.9)]"
-          >
-            Explore Products
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-medium text-foreground transition hover:border-primary/50 hover:bg-white/[0.04]"
-          >
-            Contact Us
-          </a>
+          <img
+            src={showroomImg}
+            alt="Inside the Krishiv Pyro showroom — shelves stocked with fireworks"
+            width={1400}
+            height={846}
+            className="w-full rounded-2xl border border-border object-cover shadow-md"
+          />
+          <p className="mt-3 text-center text-sm text-muted-foreground">
+            Our showroom — stocked for the season
+          </p>
         </motion.div>
-
-        {/* Divider lines */}
-        <div className="pointer-events-none absolute inset-x-0 top-24 mx-auto h-px w-1/2 max-w-xl divider-glow opacity-60" />
       </div>
-
-      {/* Scroll indicator */}
-      <a
-        href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground/60 transition hover:text-primary"
-        aria-label="Scroll down"
-      >
-        <ChevronDown className="h-6 w-6 animate-bounce" />
-      </a>
     </section>
   );
 }
