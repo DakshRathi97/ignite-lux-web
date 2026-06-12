@@ -1,115 +1,103 @@
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { Search } from "lucide-react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { SectionHeading, SectionLabel } from "./Section";
-import londonBridge from "@/assets/products/london-bridge.jpg";
-import eiffelTower from "@/assets/products/eiffel-tower.jpg";
-import seaLink from "@/assets/products/sea-link.jpg";
-import dubaiTower from "@/assets/products/dubai-tower.jpg";
-import twinTowers from "@/assets/products/twin-towers.jpg";
-import cpKickBoks from "@/assets/products/cp-kick-boks.jpg";
-import cpHook from "@/assets/products/cp-hook.jpg";
-import cpKnockOut from "@/assets/products/cp-knock-out.jpg";
-import cpSinan from "@/assets/products/cp-sinan.jpg";
-import ultraFlame from "@/assets/products/ultra-flame.jpg";
-import ultraGold from "@/assets/products/ultra-gold.jpg";
-import ultraOrange from "@/assets/products/ultra-orange.jpg";
-import primeWhite from "@/assets/products/prime-white.jpg";
-import primeGold from "@/assets/products/prime-gold.jpg";
-import primeRed from "@/assets/products/prime-red.jpg";
-import primeRedGreen from "@/assets/products/prime-red-green.jpg";
-import mrSapphire from "@/assets/products/mr-sapphire.jpg";
-import mrCrystal from "@/assets/products/mr-crystal.jpg";
-import mrCitrine from "@/assets/products/mr-citrine.jpg";
-import wedHaasini from "@/assets/products/wed-haasini.jpg";
-import wedNavjeevan from "@/assets/products/wed-navjeevan.jpg";
-import wedRaagRang from "@/assets/products/wed-raag-rang.jpg";
-import wedThirumana from "@/assets/products/wed-thirumana.jpg";
-import sunGoldenHour from "@/assets/products/sun-golden-hour.jpg";
-import sunRadiant from "@/assets/products/sun-radiant.jpg";
-import sunSkyward from "@/assets/products/sun-skyward.jpg";
-import sunBeam from "@/assets/products/sun-beam.jpg";
-import blackThunder from "@/assets/products/black-thunder.jpg";
-import pinkHeart from "@/assets/products/pink-heart.jpg";
-import ironMan from "@/assets/products/superhero-iron-man.jpg";
+import { supabase } from "@/lib/supabase";
 
-type Cat =
-  | "All"
-  | "Sky Shots"
-  | "Fountains"
-  | "Flowerpots"
-  | "Ground Spinners"
-  | "Wedding Series"
-  | "Crackers"
-  | "Novelties";
+const PAGE_SIZE = 24;
 
 interface Product {
-  img: string;
+  id: number;
   name: string;
-  desc: string;
-  cat: Exclude<Cat, "All">;
+  description: string;
+  category: string;
+  image_url: string;
 }
 
-const items: Product[] = [
-  { img: londonBridge, name: "London Bridge", desc: "Tower Series 2.0 showpiece aerial with London skyline artwork.", cat: "Sky Shots" },
-  { img: eiffelTower, name: "Eiffel Tower", desc: "Paris-themed multi-burst aerial from the Tower Series 2.0.", cat: "Sky Shots" },
-  { img: seaLink, name: "Sea Link", desc: "A golden tribute to Mumbai's Sea Link in the night sky.", cat: "Sky Shots" },
-  { img: dubaiTower, name: "Dubai Tower", desc: "Burj-inspired sky shot with green and gold tower effects.", cat: "Sky Shots" },
-  { img: twinTowers, name: "Twin Towers", desc: "Twin-column bursts from the Tower Series 2.0 collection.", cat: "Sky Shots" },
-  { img: cpKickBoks, name: "Color Punch — Kick Boks", desc: "Gold-studded colour bursts with a heavyweight finish.", cat: "Sky Shots" },
-  { img: cpHook, name: "Color Punch — Hook", desc: "Pearl-white shower of colour that lands a clean hook.", cat: "Sky Shots" },
-  { img: cpKnockOut, name: "Color Punch — Knock Out", desc: "Red and green colour pearls in a deep purple shell.", cat: "Sky Shots" },
-  { img: cpSinan, name: "Color Punch — Sinan", desc: "Ruby-red colour bursts — a crowd favourite of the series.", cat: "Sky Shots" },
-  { img: ultraFlame, name: "Ultra — Flame", desc: "Best-selling Ultra Series twin pack in the Flame edition.", cat: "Fountains" },
-  { img: ultraGold, name: "Ultra — Gold", desc: "Shimmering gold effects from the Ultra Series twin pack.", cat: "Fountains" },
-  { img: ultraOrange, name: "Ultra — Orange", desc: "Vivid orange crackle in the Ultra Series twin pack.", cat: "Fountains" },
-  { img: primeWhite, name: "Prime Series 3.0 — White", desc: "Pure white willow spread from the best-seller range.", cat: "Flowerpots" },
-  { img: primeGold, name: "Prime Series 3.0 — Gold", desc: "The signature gold willow flowerpot — our best seller.", cat: "Flowerpots" },
-  { img: primeRed, name: "Prime Series 3.0 — Red", desc: "Deep red cascade with a rich premium finish.", cat: "Flowerpots" },
-  { img: primeRedGreen, name: "Prime Series 3.0 — Red & Green", desc: "Dual-colour cascade where red meets green.", cat: "Flowerpots" },
-  { img: mrSapphire, name: "Magic Ring — Sapphire", desc: "Ground chakra twin pack in the cool Sapphire edition.", cat: "Ground Spinners" },
-  { img: mrCrystal, name: "Magic Ring — Crystal", desc: "Crystal-white sparkling rings, twin pack.", cat: "Ground Spinners" },
-  { img: mrCitrine, name: "Magic Ring — Citrine", desc: "Warm golden rings in the Citrine edition twin pack.", cat: "Ground Spinners" },
-  { img: wedHaasini, name: "Wedding Series — Haasini", desc: "White weds crackling — made for mandap moments.", cat: "Wedding Series" },
-  { img: wedNavjeevan, name: "Wedding Series — Navjeevan", desc: "Gold weds crackling — an elegant start to new beginnings.", cat: "Wedding Series" },
-  { img: wedRaagRang, name: "Wedding Series — Raag Rang", desc: "Purple weds crackling — soft, pastel celebration.", cat: "Wedding Series" },
-  { img: wedThirumana, name: "Wedding Series — Thirumana", desc: "Red weds crackling — rich, festive, and grand.", cat: "Wedding Series" },
-  { img: sunGoldenHour, name: "Sunrise — Golden Hour", desc: "Morning cracker that starts the festival day bright.", cat: "Crackers" },
-  { img: sunRadiant, name: "Sunrise — Radiant", desc: "A radiant red burst for early-morning celebrations.", cat: "Crackers" },
-  { img: sunSkyward, name: "Sunrise — Skyward", desc: "Good-morning special that sends sparks skyward.", cat: "Crackers" },
-  { img: sunBeam, name: "Sunrise — Beam", desc: "A golden beam of crackle to wake the neighbourhood.", cat: "Crackers" },
-  { img: blackThunder, name: "Black Thunder", desc: "Nayagi's famous cracker — power in every burst.", cat: "Crackers" },
-  { img: pinkHeart, name: "Pink Heart", desc: "Gems Stone series novelty — a pink heart in the sky.", cat: "Novelties" },
-  { img: ironMan, name: "Super Heroes — Iron Man", desc: "Biggest performance in the series — a kids' favourite.", cat: "Novelties" },
-];
-
-const cats: Cat[] = [
-  "All",
-  "Sky Shots",
-  "Fountains",
-  "Flowerpots",
-  "Ground Spinners",
-  "Wedding Series",
-  "Crackers",
-  "Novelties",
-];
+interface ProductPage {
+  rows: Product[];
+  count: number;
+}
 
 export function Products() {
   const [search, setSearch] = useState("");
-  const [activeCat, setActiveCat] = useState<Cat>("All");
+  const [debounced, setDebounced] = useState("");
+  const [activeCat, setActiveCat] = useState("All");
 
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    return items.filter((it) => {
-      const matchesSearch =
-        !q ||
-        it.name.toLowerCase().includes(q) ||
-        it.desc.toLowerCase().includes(q) ||
-        it.cat.toLowerCase().includes(q);
-      const matchesCat = activeCat === "All" || it.cat === activeCat;
-      return matchesSearch && matchesCat;
-    });
-  }, [search, activeCat]);
+  // Debounce so we don't hit the database on every keystroke
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(search.trim()), 300);
+    return () => clearTimeout(t);
+  }, [search]);
+
+  const { data: cats } = useQuery({
+    queryKey: ["product-categories"],
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc("product_categories");
+      if (error) throw error;
+      return (data ?? []) as string[];
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const {
+    data,
+    error,
+    isPending,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: ["products", debounced, activeCat],
+    initialPageParam: 0,
+    queryFn: async ({ pageParam }): Promise<ProductPage> => {
+      let q = supabase
+        .from("products")
+        .select("id,name,description,category,image_url", { count: "exact" })
+        .order("sort_order", { ascending: true })
+        .order("id", { ascending: true })
+        .range(pageParam, pageParam + PAGE_SIZE - 1);
+      if (activeCat !== "All") q = q.eq("category", activeCat);
+      // PostgREST or() syntax breaks on , ( ) % — strip them from user input
+      const s = debounced.replace(/[,()%]/g, " ").trim();
+      if (s) {
+        q = q.or(`name.ilike.%${s}%,description.ilike.%${s}%,category.ilike.%${s}%`);
+      }
+      const { data: rows, error, count } = await q;
+      if (error) throw error;
+      return { rows: (rows ?? []) as Product[], count: count ?? 0 };
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      const loaded = allPages.reduce((n, p) => n + p.rows.length, 0);
+      return loaded < lastPage.count ? loaded : undefined;
+    },
+  });
+
+  const products = useMemo(
+    () => (data ? data.pages.flatMap((p) => p.rows) : []),
+    [data],
+  );
+  const total = data?.pages[0]?.count ?? 0;
+
+  // Auto-load the next page when the sentinel nears the viewport,
+  // until every product has been shown
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { rootMargin: "600px" },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <section id="products" className="border-y border-border bg-surface-elevated/60 py-16 lg:py-24">
@@ -119,8 +107,8 @@ export function Products() {
           <SectionLabel>Our collection</SectionLabel>
           <SectionHeading>Browse the range</SectionHeading>
           <p className="mt-4 text-muted-foreground">
-            {items.length} products in stock — sky shots, fountains, flowerpots,
-            spinners, and more. All photos are of our actual stock.
+            Sky shots, fountains, flowerpots, spinners, and more — every photo
+            is of our actual stock.
           </p>
         </div>
 
@@ -138,7 +126,7 @@ export function Products() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {cats.map((c) => (
+            {["All", ...(cats ?? [])].map((c) => (
               <button
                 key={c}
                 onClick={() => setActiveCat(c)}
@@ -152,24 +140,59 @@ export function Products() {
               </button>
             ))}
           </div>
+
+          {!isPending && !error && total > 0 && (
+            <p className="text-sm text-muted-foreground">
+              Showing {products.length} of {total} products
+            </p>
+          )}
         </div>
 
+        {/* Initial loading skeletons */}
+        {isPending && (
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="animate-pulse overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+                <div className="aspect-[3/4] bg-muted" />
+                <div className="space-y-2 p-4">
+                  <div className="h-3 w-1/4 rounded bg-muted" />
+                  <div className="h-4 w-2/3 rounded bg-muted" />
+                  <div className="h-3 w-full rounded bg-muted" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Error state */}
+        {error && (
+          <div className="mt-16 text-center">
+            <p className="text-muted-foreground">
+              Couldn't load the catalogue. Please check your connection.
+            </p>
+            <button
+              onClick={() => refetch()}
+              className="mt-3 text-sm font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:decoration-4"
+            >
+              Try again
+            </button>
+          </div>
+        )}
+
         {/* Product grid */}
-        <motion.div layout className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((it) => (
+        {products.length > 0 && (
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((it) => (
               <motion.article
-                key={it.name}
-                layout
+                key={it.id}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3 }}
                 className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="aspect-[3/4] overflow-hidden bg-secondary/60 p-3">
                   <img
-                    src={it.img}
+                    src={it.image_url}
                     alt={it.name}
                     width={700}
                     height={933}
@@ -178,11 +201,11 @@ export function Products() {
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-4">
-                  <p className="text-xs font-medium text-muted-foreground">{it.cat}</p>
+                  <p className="text-xs font-medium text-muted-foreground">{it.category}</p>
                   <h3 className="mt-1 text-base font-semibold leading-snug text-foreground">
                     {it.name}
                   </h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{it.desc}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{it.description}</p>
                   <a
                     href="#contact"
                     aria-label={`Enquire about ${it.name}`}
@@ -193,31 +216,38 @@ export function Products() {
                 </div>
               </motion.article>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        )}
+
+        {/* Infinite-scroll sentinel + manual fallback */}
+        <div ref={sentinelRef} aria-hidden className="h-px" />
+        {hasNextPage && (
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => fetchNextPage()}
+              disabled={isFetchingNextPage}
+              className="rounded-lg border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-secondary disabled:opacity-60"
+            >
+              {isFetchingNextPage ? "Loading more..." : "Load more products"}
+            </button>
+          </div>
+        )}
 
         {/* Empty state */}
-        <AnimatePresence>
-          {filtered.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              className="mt-16 text-center"
+        {!isPending && !error && total === 0 && (
+          <div className="mt-16 text-center">
+            <p className="text-muted-foreground">No products match your search.</p>
+            <button
+              onClick={() => {
+                setSearch("");
+                setActiveCat("All");
+              }}
+              className="mt-3 text-sm font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:decoration-4"
             >
-              <p className="text-muted-foreground">No products match your search.</p>
-              <button
-                onClick={() => {
-                  setSearch("");
-                  setActiveCat("All");
-                }}
-                className="mt-3 text-sm font-semibold text-foreground underline decoration-primary decoration-2 underline-offset-4 hover:decoration-4"
-              >
-                Clear all filters
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              Clear all filters
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
