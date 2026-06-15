@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { SectionHeading, SectionLabel } from "./Section";
-import aboutImg from "@/assets/store/range-prime-gold.jpg";
+import aboutImg from "@/assets/store/team.jpg";
 
 export function About() {
   return (
@@ -14,9 +14,9 @@ export function About() {
         >
           <img
             src={aboutImg}
-            alt="Prime Series and Super Heroes fireworks boxes on display"
-            width={825}
-            height={1100}
+            alt="The Krishiv Pyro LLP family"
+            width={713}
+            height={1200}
             loading="lazy"
             className="mx-auto w-full max-w-md rounded-2xl border border-border object-cover shadow-md"
           />
